@@ -2,6 +2,9 @@ package com.example.rc_carapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -62,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
         // adding a Car
         car = new Car(ip, carPort, cameraPort);
         final CarController controller = new CarController(car);
+
+        // Location Stuff
+        /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        LocationListener locationListener = new PhoneGPSListener();
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);*/
 
         // when button is pressed -> get Image from car.
         changeImg.setOnTouchListener(new View.OnTouchListener() {
