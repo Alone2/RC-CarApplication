@@ -1,81 +1,82 @@
 package com.example.rc_carapplication;
 
+import android.os.AsyncTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Car {
+public class Car  {
 
-    static double frequency = 2;
-    static double dead_frequency = 3;
-    static double burst_us = 4;
-    static double spacing_us = 5;
+    static double frequency = 27.145;
+    static double dead_frequency = 49;
+    static double burst_us = 1200;
+    static double spacing_us = 400;
 
-    static String carIpAddress = "localhost";
+    static String carIpAddress = "192.168.151.185";
     static int carPort = 12345;
 
     // repeats codes
-    static int startRepeats;
-    static int stopRepeats;
+    static int startRepeats = 4;
+    static int stopRepeats = 4;
 
-    static int forwardRepeats;
-    static int backwardsRepeats;
-    static int forwardRightRepeats;
-    static int forwardLeftRepeats;
-    static int backwardsRightRepeats;
-    static int backwardsLeftRepeats;
-    static int rightRepeats = 1;
-    static int leftRepeats;
+    static int forwardRepeats = 11;
+    static int backwardsRepeats = 39;
+    static int forwardRightRepeats = 33;
+    static int forwardLeftRepeats = 27;
+    static int backwardsRightRepeats = 45;
+    static int backwardsLeftRepeats = 51;
+    static int rightRepeats = 64;
+    static int leftRepeats = 59;
 
-    Socket socket;
+    SocketHandler sockethandler;
 
 
-    public Car() throws UnknownHostException, IOException {
-        socket = new Socket(carIpAddress, carPort);
+    public Car() throws UnknownHostException,IOException {
+        sockethandler = new SocketHandler();
     }
 
     public void forward() {
-
-
+        sendStartMsg(forwardRepeats);
     }
 
     public void backwards() {
-
+        sendStartMsg(backwardsRepeats);
     }
 
 
     public void forwardRight() {
-
+        sendStartMsg(forwardRightRepeats);
     }
 
 
     public void forwardLeft() {
-
+        sendStartMsg(forwardLeftRepeats);
     }
 
 
     public void backwardsRight() {
-
+        sendStartMsg(backwardsRightRepeats);
     }
 
 
     public void backwardsLeft() {
-
+        sendStartMsg(leftRepeats);
     }
 
 
     public void left() {
-
+        sendStartMsg(leftRepeats);
     }
 
-
     public void right() {
-        sendStartMsg(12);
+        sendStartMsg(rightRepeats);
 
     }
 
@@ -83,29 +84,20 @@ public class Car {
     public void stop() {
         JSONArray command = new JSONArray();
         command.put(createCommand(stopRepeats));
-        sendMessage(command);
+
+
+        sockethandler.execute(command);
     }
 
     private void sendStartMsg(int repeats)  {
         JSONArray command = new JSONArray();
         command.put(createCommand(startRepeats));
         command.put(createCommand(repeats));
-        sendMessage(command);
+
+        sockethandler.execute(command);
     }
 
-    private void sendMessage(JSONArray command)  {
-        String cmdString = command.toString();
-        byte[] byteOut = cmdString.getBytes();
 
-        // Don't care 'bout that error
-        try {
-            OutputStream outputstream = socket.getOutputStream();
-            outputstream.write(byteOut);
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     // create JSONObject
     private JSONObject createCommand(double repeats) {
@@ -122,6 +114,50 @@ public class Car {
             e.printStackTrace();
         }
         return command;
+    }
+
+    class SocketHandler extends AsyncTask<JSONArray, Void, Integer>  {
+
+        Socket socket;
+        public SocketHandler() throws  IOException {
+            // doesn't work somehow
+            //socket = new Socket(carIpAddress, carPort);
+        }
+
+        public Integer doInBackground(JSONArray... ja) {
+            try {
+                socket = new Socket(carIpAddress, carPort);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            sendMessage(ja[0]);
+            try {
+                socket.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return 1;
+        }
+
+
+        private void sendMessage(JSONArray command)  {
+            String cmdString = command.toString();
+            byte[] byteOut = cmdString.getBytes();
+
+            // Don't care 'bout that error
+            try {
+                DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
+
+                outToServer.write(byteOut);
+            }  catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
 }
