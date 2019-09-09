@@ -21,17 +21,23 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView down = (ImageView) findViewById(R.id.downBtn);
 
-
-
         down.setOnTouchListener(new View.OnTouchListener() {
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
 
-                Log.w("test","msg");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    //do something when button is released
+
+                }
                 return false;
             }
         });
+
+
+
 
     }
 
