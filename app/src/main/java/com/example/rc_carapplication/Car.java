@@ -35,6 +35,7 @@ public class Car  {
     static int rightRepeats = 64;
     static int leftRepeats = 59;
 
+    Socket socket;
     SocketHandler sockethandler;
 
 
@@ -67,7 +68,7 @@ public class Car  {
 
 
     public void backwardsLeft() {
-        sendStartMsg(leftRepeats);
+        sendStartMsg(backwardsLeftRepeats);
     }
 
 
@@ -85,8 +86,12 @@ public class Car  {
         JSONArray command = new JSONArray();
         command.put(createCommand(stopRepeats));
 
-
-        sockethandler.execute(command);
+        try {
+            SocketHandler so = new SocketHandler();
+            so.execute(command);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendStartMsg(int repeats)  {
@@ -94,7 +99,13 @@ public class Car  {
         command.put(createCommand(startRepeats));
         command.put(createCommand(repeats));
 
-        sockethandler.execute(command);
+        try {
+            SocketHandler so = new SocketHandler();
+            so.execute(command);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -118,26 +129,16 @@ public class Car  {
 
     class SocketHandler extends AsyncTask<JSONArray, Void, Integer>  {
 
-        Socket socket;
-        public SocketHandler() throws  IOException {
-            // doesn't work somehow
-            //socket = new Socket(carIpAddress, carPort);
-        }
 
         public Integer doInBackground(JSONArray... ja) {
             try {
-                socket = new Socket(carIpAddress, carPort);
+                if (socket == null)
+                    socket = new Socket(carIpAddress, carPort);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
             sendMessage(ja[0]);
-            try {
-                socket.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             return 1;
         }
