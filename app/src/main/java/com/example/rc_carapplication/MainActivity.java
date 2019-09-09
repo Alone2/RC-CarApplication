@@ -34,14 +34,15 @@ public class MainActivity extends AppCompatActivity {
         down.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                int eventAction = event.getAction();
+                Log.w("test","msg" + eventAction);
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
                     //do something when button is pressed
                     car.backwards();
-
-                }
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                } else if(eventAction == MotionEvent.ACTION_UP){
                     //do something when button is released
-                    car.forward();
+                    car.stop();
                 }
                 return false;
             }
