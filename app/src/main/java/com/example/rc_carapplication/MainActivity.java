@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -172,10 +173,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
+    }
+    // really ugly to do that here but whatever
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
+            car.forward();
+        }
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            car.backwards();
+        }
+        return true;
+    }
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            car.stop();
+        }
+        return true;
     }
 
 }
