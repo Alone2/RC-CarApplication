@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/downBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/down" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/leftBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/left" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/upBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/up" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/rightBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/right" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/downRightBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/downright" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/downLeftBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/downleft" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/upRightBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

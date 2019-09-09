@@ -23,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton down = (ImageButton) findViewById(R.id.upLeftBtn);
+        ImageButton down = (ImageButton) findViewById(R.id.downBtn);
+        ImageButton up = (ImageButton) findViewById(R.id.upBtn);
+        ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
+        ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
+        ImageButton upRight = (ImageButton) findViewById(R.id.upBtn);
+        ImageButton upLeft = (ImageButton) findViewById(R.id.upLeftBtn);
+        ImageButton downRight = (ImageButton) findViewById(R.id.downRightBtn);
+        ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
         try {
             car = new Car();
@@ -35,11 +42,128 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int eventAction = event.getAction();
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.backwards();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+        up.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.forward();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+
+        left.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
                 Log.w("test","msg" + eventAction);
 
                 if(eventAction == MotionEvent.ACTION_DOWN){
                     //do something when button is pressed
-                    car.backwards();
+                    car.left();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+        right.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                Log.w("test","msg" + eventAction);
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.right();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+        upRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                Log.w("test","msg" + eventAction);
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.backwardsRight();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+        upLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                Log.w("test","msg" + eventAction);
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.forwardLeft();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+        downRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                Log.w("test","msg" + eventAction);
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.backwardsRight();
+                } else if(eventAction == MotionEvent.ACTION_UP){
+                    //do something when button is released
+                    car.stop();
+                }
+                return false;
+            }
+        });
+
+        downLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                Log.w("test","msg" + eventAction);
+
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    car.backwardsLeft();
                 } else if(eventAction == MotionEvent.ACTION_UP){
                     //do something when button is released
                     car.stop();
