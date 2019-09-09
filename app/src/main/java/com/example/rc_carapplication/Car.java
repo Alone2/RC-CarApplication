@@ -86,12 +86,9 @@ public class Car  {
         JSONArray command = new JSONArray();
         command.put(createCommand(stopRepeats));
 
-        try {
-            SocketHandler so = new SocketHandler();
-            so.execute(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SocketHandler so = new SocketHandler();
+        so.execute(command);
+
     }
 
     private void sendStartMsg(int repeats)  {
@@ -99,12 +96,9 @@ public class Car  {
         command.put(createCommand(startRepeats));
         command.put(createCommand(repeats));
 
-        try {
-            SocketHandler so = new SocketHandler();
-            so.execute(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SocketHandler so = new SocketHandler();
+        so.execute(command);
+
 
     }
 
