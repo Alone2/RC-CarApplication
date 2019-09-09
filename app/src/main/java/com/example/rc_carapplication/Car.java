@@ -15,8 +15,9 @@ import java.net.UnknownHostException;
 public class Car  {
 
     static double frequency = 27.145;
-    static double dead_frequency = 49;
-    static double burst_us = 1200;
+    static double dead_frequency = 49.83;
+    static double burst_us_sync = 1200;
+    static double burst_us_command = 400;
     static double spacing_us = 400;
 
     static String carIpAddress = "192.168.151.185";
@@ -84,7 +85,7 @@ public class Car  {
     // bring the car to a halt.
     public void stop() {
         JSONArray command = new JSONArray();
-        command.put(createCommand(stopRepeats));
+        command.put(createCommand(stopRepeats, burst_us_sync));
 
         SocketHandler so = new SocketHandler();
         so.execute(command);
@@ -93,8 +94,8 @@ public class Car  {
 
     private void sendStartMsg(int repeats)  {
         JSONArray command = new JSONArray();
-        command.put(createCommand(startRepeats));
-        command.put(createCommand(repeats));
+        command.put(createCommand(startRepeats, burst_us_sync));
+        command.put(createCommand(repeats, burst_us_command));
 
         SocketHandler so = new SocketHandler();
         so.execute(command);
@@ -105,7 +106,7 @@ public class Car  {
 
 
     // create JSONObject
-    private JSONObject createCommand(double repeats) {
+    private JSONObject createCommand(double repeats, double burst_us) {
         JSONObject command = new JSONObject();
         try {
             // add static things
