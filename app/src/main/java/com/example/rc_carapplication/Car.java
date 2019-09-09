@@ -32,63 +32,41 @@ public class Car {
 
     }
 
-    public void forward(double distance) {
-
-    }
-
     public void backwards() {
 
     }
 
-    public void backwards(double distance) {
-
-    }
 
     public void forwardRight() {
 
     }
 
-    public void forwardRight(double distance) {
-
-    }
 
     public void forwardLeft() {
 
     }
 
-    public void forwardLeft(double distance) {
-
-    }
 
     public void backwardsRight() {
 
     }
 
-    public void backwardsRight(double distance) {
-
-    }
 
     public void backwardsLeft() {
 
     }
 
-    public void backwardsLeft(double distance) {
-
-    }
 
     public void left() {
 
     }
 
-    public void left(double distance) {
-
-    }
 
     public void right() {
 
     }
 
-    public void right(double distance) {
+    public void stop() {
 
     }
 
