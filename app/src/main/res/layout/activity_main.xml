@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/upright" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/upLeftBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,4 +93,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/upleft" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView down = (ImageView) findViewById(R.id.downBtn);
+        ImageButton down = (ImageButton) findViewById(R.id.upLeftBtn);
 
         try {
             car = new Car();
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
 
 
 
