@@ -23,12 +23,15 @@ public class MainActivity extends AppCompatActivity {
     static Car car;
     static final String ip = "192.168.8.104";
     static final int cameraPort = 1900;
+    GPSHandler gpsdH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        gpsdH = new GPSHandler();
 
         // buttons for moving
         ImageButton down = (ImageButton) findViewById(R.id.downBtn);
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Button changeImg = (Button) findViewById(R.id.screenshot);
 
         // Place where the Video is displayed
-        final ImageView imgView = (ImageView) findViewById(R.id.piImage);
+        //final ImageView imgView = (ImageView) findViewById(R.id.piImage);
 
         // adding a Car
         car = new Car(ip);
@@ -57,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 int eventAction = event.getAction();
                 if(eventAction == MotionEvent.ACTION_DOWN){
                     //do something when button is pressed
-                    Bitmap b = car.getCameraPicture();
-                    imgView.setImageBitmap(b);
+                    /*Bitmap b = car.getCameraPicture();
+                    imgView.setImageBitmap(b)
+                    ;
+                    */
                 }
                 return false;
             }
@@ -221,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 
 }
