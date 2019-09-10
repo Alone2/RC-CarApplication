@@ -21,20 +21,16 @@ public class CarController {
             }
         };
         t.schedule(moveObj,time);
-
-
     }
 
     public void panoramaTurn(){
-
-        moveCar(MoveCarEnum.FORWARD,0);
-        moveCar(MoveCarEnum.BACKWARDS,600);
-        moveCar(MoveCarEnum.SYNC,1200);
-        moveCar(MoveCarEnum.FORWARD,1800);
-        moveCar(MoveCarEnum.SYNC,2400);
-
-
-
+        for(int i = 0; i<6; i++){
+        moveCar(MoveCarEnum.FORWARDRIGHT,0 + i*3000);
+        moveCar(MoveCarEnum.BACKWARDSLEFT,500 + i*3000);
+        moveCar(MoveCarEnum.SYNC,1300 + i*3000);
+        moveCar(MoveCarEnum.FORWARDRIGHT,1800 + i*3000);
+        moveCar(MoveCarEnum.SYNC,2400 + i*3000);
+        }
     }
 
 }
