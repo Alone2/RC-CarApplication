@@ -33,11 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton downRight = (ImageButton) findViewById(R.id.downRightBtn);
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
-        try {
-            car = new Car("192.168.8.104");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        car = new Car("192.168.8.104");
+
 
         down.setOnTouchListener(new View.OnTouchListener() {
             @Override
