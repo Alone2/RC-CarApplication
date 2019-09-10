@@ -40,7 +40,7 @@ public class Car  {
     SocketHandler sockethandler;
 
 
-    public Car(String ipAddress) throws UnknownHostException,IOException {
+    public Car(String ipAddress) {
         this.carIpAddress = ipAddress;
         sockethandler = new SocketHandler();
     }
