@@ -28,7 +28,7 @@ public class Car  {
         sockethandler = new SocketHandler();
     }
 
-    // drive with MoveCarEnum
+    // drive with MoveCarEnum (you can cycle through 'MoveCarEnum')
     public void drive(MoveCarEnum move) {
         JSONArray command = new JSONArray();
         command.put(createCommand(move.getValue(), move.getBurst()));
