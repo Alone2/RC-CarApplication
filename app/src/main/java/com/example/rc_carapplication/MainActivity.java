@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton up = (ImageButton) findViewById(R.id.upBtn);
         ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
         ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
-        ImageButton upRight = (ImageButton) findViewById(R.id.upBtn);
+        ImageButton upRight = (ImageButton) findViewById(R.id.upRightBtn);
         ImageButton upLeft = (ImageButton) findViewById(R.id.upLeftBtn);
         ImageButton downRight = (ImageButton) findViewById(R.id.downRightBtn);
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(eventAction == MotionEvent.ACTION_DOWN){
                     //do something when button is pressed
-                    car.backwardsRight();
+                    car.forwardRight();
                 } else if(eventAction == MotionEvent.ACTION_UP){
                     //do something when button is released
                     car.stop();
@@ -178,10 +178,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
-            car.forward();
+            car.backwards();
         }
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
-            car.backwards();
+            car.forward();
         }
         return true;
     }
