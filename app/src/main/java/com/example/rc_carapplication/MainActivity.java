@@ -2,6 +2,7 @@ package com.example.rc_carapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // buttons for moving
         ImageButton down = (ImageButton) findViewById(R.id.downBtn);
         ImageButton up = (ImageButton) findViewById(R.id.upBtn);
         ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
@@ -38,16 +40,31 @@ public class MainActivity extends AppCompatActivity {
         ImageButton downRight = (ImageButton) findViewById(R.id.downRightBtn);
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
-        VideoView videoView = (VideoView) findViewById(R.id.videoView);
+        // button for moving the image
+        Button changeImg = (Button) findViewById(R.id.screenshot);
 
-        // adding camera stream to view
-        Uri cameraUri = Uri.parse(("rtsp://" + ip + ":" + cameraPort + "/"));
-        videoView.setVideoURI(cameraUri);
-        videoView.start();
+        // Place where the Video is displayed
+        final ImageView imgView = (ImageView) findViewById(R.id.piImage);
+
         // adding a Car
         car = new Car(ip);
         final CarController controller = new CarController(car);
 
+        // when button is pressed -> get Image from car.
+        changeImg.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                if(eventAction == MotionEvent.ACTION_DOWN){
+                    //do something when button is pressed
+                    Bitmap b = car.getCameraPicture();
+                    imgView.setImageBitmap(b);
+                }
+                return false;
+            }
+        });
+
+        // when buttons to move clicked -> drive
         down.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -187,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     // really ugly to do that here but whatever
+    // Volume up / down key make car go forward / backwards
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
@@ -203,5 +221,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 }
