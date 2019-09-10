@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView imgView = (ImageView) findViewById(R.id.piImage);
 
         // adding a Car
-        car = new Car(ip);
+        car = new Car(ip, 1234, cameraPort);
         final CarController controller = new CarController(car);
 
         // when button is pressed -> get Image from car.
