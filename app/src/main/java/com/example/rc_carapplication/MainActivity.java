@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Button changeImg = (Button) findViewById(R.id.screenshot);
 
         // Place where the Video is displayed
-        //final ImageView imgView = (ImageView) findViewById(R.id.piImage);
+        final ImageView imgView = (ImageView) findViewById(R.id.piImage);
 
         // adding a Car
         car = new Car(ip);
@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 int eventAction = event.getAction();
                 if(eventAction == MotionEvent.ACTION_DOWN){
                     //do something when button is pressed
-                    /*Bitmap b = car.getCameraPicture();
+                    Bitmap b = car.getCameraPicture();
                     imgView.setImageBitmap(b)
                     ;
-                    */
+
                 }
                 return false;
             }
