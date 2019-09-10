@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
         car = new Car("192.168.8.104");
-        CarController controller = new CarController(car);
-        controller.panoramaTurn();
+        final CarController controller = new CarController(car);
 
         down.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -43,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 int eventAction = event.getAction();
                 if(eventAction == MotionEvent.ACTION_DOWN){
                     //do something when button is pressed
-                    car.backwards();
+                    //car.backwards();
+                    controller.panoramaTurn();
                 } else if(eventAction == MotionEvent.ACTION_UP){
                     //do something when button is released
-                    car.stop();
+                    //car.stop();
                 }
                 return false;
             }
