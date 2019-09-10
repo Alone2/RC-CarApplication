@@ -1,6 +1,7 @@
 package com.example.rc_carapplication;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,10 +78,12 @@ public class Car  {
 
     // bring the car to a halt.
     public void stop() {
+        Log.w("test","stopTask");
+
         drive(MoveCarEnum.SYNC);
     }
 
-    private void sendStartMsg(MoveCarEnum e)  {
+    public void sendStartMsg(MoveCarEnum e)  {
         JSONArray command = new JSONArray();
         command.put(createCommand(MoveCarEnum.SYNC.getValue(), MoveCarEnum.SYNC.getBurst()));
         command.put(createCommand(e.getValue(), e.getBurst()));
