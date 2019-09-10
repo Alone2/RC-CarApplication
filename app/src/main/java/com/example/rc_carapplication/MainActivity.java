@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
         try {
-            car = new Car();
+            car = new Car("192.168.8.104");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,7 +20,7 @@ public class Car  {
     static double burst_us_command = 400;
     static double spacing_us = 400;
 
-    static String carIpAddress = "192.168.151.185";
+    static String carIpAddress;
     static int carPort = 12345;
 
     // repeats codes
@@ -40,7 +40,8 @@ public class Car  {
     SocketHandler sockethandler;
 
 
-    public Car() throws UnknownHostException,IOException {
+    public Car(String ipAddress) throws UnknownHostException,IOException {
+        this.carIpAddress = ipAddress;
         sockethandler = new SocketHandler();
     }
 
