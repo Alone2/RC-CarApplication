@@ -2,6 +2,7 @@ package com.example.rc_carapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,13 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity {
 
     static Car car;
+    static final String ip = "192.168.8.104";
+    static final int cameraPort = 1900;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
         ImageButton downRight = (ImageButton) findViewById(R.id.downRightBtn);
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
-        car = new Car("192.168.8.104");
+        VideoView videoView = (VideoView) findViewById(R.id.videoView);
+
+        // adding camera stream to view
+        Uri cameraUri = Uri.parse(("rtsp://" + ip + ":" + cameraPort + "/"));
+        videoView.setVideoURI(cameraUri);
+        videoView.start();
+        // adding a Car
+        car = new Car(ip);
         final CarController controller = new CarController(car);
 
         down.setOnTouchListener(new View.OnTouchListener() {
@@ -170,6 +182,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
 
     }
     // really ugly to do that here but whatever
