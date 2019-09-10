@@ -12,8 +12,8 @@ public enum MoveCarEnum {
     RIGHT(64, 400),
     LEFT(59, 400);
 
-    private final int repeats;   // in kilograms
-    private final int burst;   // in kilograms
+    private final int repeats;
+    private final int burst;
 
     MoveCarEnum(int repeats, int burst) {
         this.repeats = repeats;
