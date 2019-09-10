@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton downLeft = (ImageButton) findViewById(R.id.downLeftBtn);
 
         car = new Car("192.168.8.104");
-
+        CarController controller = new CarController(car);
+        controller.panoramaTurn();
 
         down.setOnTouchListener(new View.OnTouchListener() {
             @Override
