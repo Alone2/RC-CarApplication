@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Car  {
 
@@ -18,14 +18,20 @@ public class Car  {
     static double spacing_us = 400;
 
     static String carIpAddress;
+    static String cameraIpAddress;
     static int carPort = 12345;
+    static int cameraPort;
 
     Socket socket;
+    Socket cameraSocket;
     SocketHandler sockethandler;
 
 
-    public Car(String ipAddress) {
+    public Car(String ipAddress, int carPort, int cameraPort) {
         this.carIpAddress = ipAddress;
+        this.carPort = carPort;
+        this.cameraIpAddress = ipAddress;
+        this.cameraPort = cameraPort;
         sockethandler = new SocketHandler();
     }
 
@@ -36,6 +42,21 @@ public class Car  {
 
         SocketHandler so = new SocketHandler();
         so.execute(command);
+    }
+
+    public void storePanoramaPicture() {
+        CameraSocketHandler so = new CameraSocketHandler();
+        so.execute("storePanoramaPicture");
+    }
+
+    public void stopPanorama() {
+        CameraSocketHandler so = new CameraSocketHandler();
+        so.execute("stopPanorama");
+    }
+
+    public void getCameraPicture() {
+        CameraSocketHandler so = new CameraSocketHandler();
+        so.execute("getPicture");
     }
 
     public void forward() {
@@ -109,9 +130,8 @@ public class Car  {
         return command;
     }
 
+    // SocketHandler because socket can not be handled in main thread...
     class SocketHandler extends AsyncTask<JSONArray, Void, Integer>  {
-
-
         public Integer doInBackground(JSONArray... ja) {
             try {
                 if (socket == null)
@@ -124,7 +144,6 @@ public class Car  {
 
             return 1;
         }
-
 
         private void sendMessage(JSONArray command)  {
             String cmdString = command.toString();
@@ -140,6 +159,32 @@ public class Car  {
             }
 
         }
+
+    }
+
+    // SocketHandler for Camera...
+    // execute -> 2 arguments -> String command , String receiveImage (like boolean -> true if not empty)
+    class CameraSocketHandler extends AsyncTask<String, Void, Integer>  {
+        public Integer doInBackground(String... strCmd) {
+            try {
+                if (cameraSocket == null)
+                    cameraSocket = new Socket(cameraIpAddress, cameraPort);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            byte[] byteOut = strCmd[0].getBytes();
+
+            try {
+                DataOutputStream outToServer = new DataOutputStream(cameraSocket.getOutputStream());
+                outToServer.write(byteOut);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return 1;
+        }
+
 
     }
 

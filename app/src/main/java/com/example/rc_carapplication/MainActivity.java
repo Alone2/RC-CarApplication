@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,8 +22,9 @@ import java.net.UnknownHostException;
 public class MainActivity extends AppCompatActivity {
 
     static Car car;
-    static final String ip = "192.168.8.104";
+    static final String ip = "192.168.8.103";
     static final int cameraPort = 1900;
+    static final int carPort = 1234;
     GPSHandler gpsdH;
 
     @Override
@@ -47,10 +49,16 @@ public class MainActivity extends AppCompatActivity {
         Button changeImg = (Button) findViewById(R.id.screenshot);
 
         // Place where the Video is displayed
-        final ImageView imgView = (ImageView) findViewById(R.id.piImage);
+        WebView webView = (WebView) findViewById(R.id.ourWeb);
+
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
+        //webView.setInitialScale(100);
+
+        webView.loadUrl("http://" + ip);
 
         // adding a Car
-        car = new Car(ip, 1234, cameraPort);
+        car = new Car(ip, carPort, cameraPort);
         final CarController controller = new CarController(car);
 
         // when button is pressed -> get Image from car.
@@ -59,11 +67,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 int eventAction = event.getAction();
                 if(eventAction == MotionEvent.ACTION_DOWN){
-                    //do something when button is pressed
-                    Bitmap b = car.getCameraPicture();
-                    imgView.setImageBitmap(b)
-                    ;
-
+                    //get new Picture when button is pressed
+                    Log.w("test","getNewPicture");
+                    car.getCameraPicture();
                 }
                 return false;
             }

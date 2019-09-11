@@ -102,15 +102,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/piImage"
-        android:layout_width="372dp"
-        android:layout_height="227dp"
+    <WebView
+        android:id="@+id/ourWeb"
+        android:layout_width="353dp"
+        android:layout_height="214dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/load" />
-
+        tools:layout_editor_absoluteY="-2dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
