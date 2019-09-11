@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     static Car car;
     static final String ip = "192.168.8.103";
     static final int cameraPort = 5004;
-    static final int carPort = 1234;
+    static final int carPort = 12345;
     GPSHandler gpsdH;
 
     @Override
