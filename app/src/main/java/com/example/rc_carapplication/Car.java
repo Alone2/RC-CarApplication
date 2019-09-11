@@ -13,9 +13,9 @@ import java.net.Socket;
 
 public class Car  {
 
-    static double frequency = 27.145;
-    static double dead_frequency = 49.83;
-    static double spacing_us = 400;
+    final static double frequency = 27.145;
+    final static double dead_frequency = 49.83;
+    final static double spacing_us = 400;
 
     static String carIpAddress;
     static String cameraIpAddress;
@@ -94,7 +94,6 @@ public class Car  {
 
     public void right() {
         sendStartMsg(MoveCarEnum.RIGHT);
-
     }
 
     // bring the car to a halt.
