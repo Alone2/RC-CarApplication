@@ -8,7 +8,7 @@ import de.taimos.gpsd4java.types.TPVObject;
 
 public class GPSHandler {
     GPSdEndpoint gspdE;
-    String gpsServer = "192.168.8.104";
+    String gpsServer = "192.168.8.103";
     int gspPort = 2948;
     double gpsd_Latitude;
     double gpsd_Longitude;
