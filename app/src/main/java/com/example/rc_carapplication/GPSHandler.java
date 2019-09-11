@@ -1,6 +1,7 @@
 package com.example.rc_carapplication;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import de.taimos.gpsd4java.api.ObjectListener;
 import de.taimos.gpsd4java.backend.GPSdEndpoint;
@@ -14,10 +15,12 @@ public class GPSHandler {
     double gpsd_Longitude;
     double gpsd_Speed;
     double gpsd_Course;
+    TextView gpsdInformation;
 
-    public GPSHandler(){
+    public GPSHandler(TextView tV){
         gspdE = new GPSdEndpoint(gpsServer, gspPort);
-        Log.w("test", "WORKING");
+        gpsdInformation = tV;
+
         gspdE.addListener(new ObjectListener(){
             @Override
             public void handleTPV(TPVObject tpv) {
@@ -25,7 +28,8 @@ public class GPSHandler {
                 gpsd_Longitude = tpv.getLongitude();
                 gpsd_Speed = tpv.getSpeed();
                 gpsd_Course = tpv.getCourse();
-                Log.w("test", "GPS works " + gpsd_Speed);
+                gpsdInformation.setText("gpsd_Speed: " + gpsd_Speed + "\n" + "gpsd_Course: " + gpsd_Course);
+
             }
         });
         try {

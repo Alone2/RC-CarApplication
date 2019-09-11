@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.io.IOException;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gpsdH = new GPSHandler();
+
+        TextView gpsdText = (TextView) findViewById(R.id.gpsdInformation);
+        gpsdH = new GPSHandler(gpsdText);
 
         // buttons for moving
         ImageButton down = (ImageButton) findViewById(R.id.downBtn);
