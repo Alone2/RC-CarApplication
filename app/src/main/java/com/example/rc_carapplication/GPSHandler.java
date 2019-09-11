@@ -17,9 +17,10 @@ public class GPSHandler {
     double gpsd_Course;
     TextView gpsdInformation;
 
-    public GPSHandler(TextView tV){
+    public GPSHandler(TextView tV, String ip){
         gspdE = new GPSdEndpoint(gpsServer, gspPort);
         gpsdInformation = tV;
+        gpsServer = ip;
 
         gspdE.addListener(new ObjectListener(){
             @Override

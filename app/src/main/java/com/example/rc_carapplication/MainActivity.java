@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView gpsdText = (TextView) findViewById(R.id.gpsdInformation);
-        gpsdH = new GPSHandler(gpsdText);
+        gpsdH = new GPSHandler(gpsdText, ip);
 
         // buttons for moving
         ImageButton down = (ImageButton) findViewById(R.id.downBtn);
