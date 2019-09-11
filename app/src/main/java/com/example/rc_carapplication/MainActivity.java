@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,13 +19,15 @@ import android.widget.VideoView;
 import java.io.IOException;
 import java.net.URI;
 import java.net.UnknownHostException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
     static Car car;
     static final String ip = "192.168.8.103";
     static final int cameraPort = 5004;
-    static final int carPort = 12345;
+    static final int carPort = 1234;
     GPSHandler gpsdH;
 
     @Override
@@ -49,10 +52,12 @@ public class MainActivity extends AppCompatActivity {
         Button changeImg = (Button) findViewById(R.id.screenshot);
 
         // Place where the Video is displayed
-        WebView webView = (WebView) findViewById(R.id.ourWeb);
-
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
+        final WebView webView = (WebView) findViewById(R.id.ourWeb);
+        //int contentHight ? webView.getContentHeight()
+        WebSettings webSett = webView.getSettings();
+        webSett.setJavaScriptEnabled(true);
+        webSett.setLoadWithOverviewMode(true);
+        webSett.setUseWideViewPort(true);
         //webView.setInitialScale(100);
 
         webView.loadUrl("http://" + ip);

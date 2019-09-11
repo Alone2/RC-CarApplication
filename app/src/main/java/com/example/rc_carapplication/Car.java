@@ -19,7 +19,7 @@ public class Car  {
 
     static String carIpAddress;
     static String cameraIpAddress;
-    static int carPort = 12345;
+    static int carPort;
     static int cameraPort;
 
     Socket socket;
@@ -163,7 +163,7 @@ public class Car  {
     }
 
     // SocketHandler for Camera...
-    // execute -> 2 arguments -> String command , String receiveImage (like boolean -> true if not empty)
+    // execute -> 1 arguments -> String command
     class CameraSocketHandler extends AsyncTask<String, Void, Integer>  {
         public Integer doInBackground(String... strCmd) {
             try {
