@@ -2,8 +2,6 @@ package com.example.rc_carapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -13,15 +11,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.UnknownHostException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Button changeImg = (Button) findViewById(R.id.screenshot);
 
         // buttin for getting the Panorama
-        Button pan = (Button) findViewById(R.id.panorama);
+        Button pan = (Button) findViewById(R.id.panoram3a);
 
         // Place where the Video is displayed
         final WebView webView = (WebView) findViewById(R.id.ourWeb);

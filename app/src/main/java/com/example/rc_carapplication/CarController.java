@@ -1,11 +1,7 @@
 package com.example.rc_carapplication;
 
-import android.util.Log;
-
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Handler;
 
 public class CarController {
     private Car car;
