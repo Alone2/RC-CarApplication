@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Button changeImg = (Button) findViewById(R.id.screenshot);
 
         // buttin for getting the Panorama
-        Button pan = (Button) findViewById(R.id.panoram3a);
+        Button pan = (Button) findViewById(R.id.panorama);
 
         // Place where the Video is displayed
         final WebView webView = (WebView) findViewById(R.id.ourWeb);
