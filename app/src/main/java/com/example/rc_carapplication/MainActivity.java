@@ -1,7 +1,9 @@
 package com.example.rc_carapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -70,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new PhoneGPSListener();
+
+        ContextCompat.checkSelfPermission(this, Manifest.permission_group.LOCATION);
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, locationListener);*/
 
