@@ -53,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
         // buttin for getting the Panorama
         Button pan = (Button) findViewById(R.id.panorama);
 
-        // Place where the Video is displayed
+        // button for activating autopilot
+        Button auto = (Button) findViewById(R.id.autopilot);
+
+        // Place where the image is displayed
         final WebView webView = (WebView) findViewById(R.id.ourWeb);
-        //int contentHight ? webView.getContentHeight()
         WebSettings webSett = webView.getSettings();
         webSett.setJavaScriptEnabled(true);
         webSett.setLoadWithOverviewMode(true);
         webSett.setUseWideViewPort(true);
-        //webView.setInitialScale(0);
-
         webView.loadUrl("http://" + ip);
 
         // adding a Car
@@ -76,6 +76,24 @@ public class MainActivity extends AppCompatActivity {
         ContextCompat.checkSelfPermission(this, Manifest.permission_group.LOCATION);
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, locationListener);*/
+
+
+        auto.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int eventAction = event.getAction();
+                if (eventAction == MotionEvent.ACTION_DOWN) {
+                    // go to place
+                    final double[][] positions = {
+                            {46.0110946,8.957196}
+                    };
+                    // new runnable thread
+                    Runnable r = new AutoDriveLoop(gpsdH, positions, car);
+                    new Thread(r).start();
+                }
+                return false;
+            }
+        });
 
         // when button is pressed -> get Image from car.
         changeImg.setOnTouchListener(new View.OnTouchListener() {

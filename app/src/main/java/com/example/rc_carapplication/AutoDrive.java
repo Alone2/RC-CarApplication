@@ -8,12 +8,6 @@ public class AutoDrive {
         this.gps = ge;
         this.car = car;
         // position where to go.
-        final double[][] positions = {
-                {46.0110946,8.957196}
-        };
-        // new runnable thread
-        Runnable r = new AutoDriveLoop(ge, positions, car);
-        new Thread(r).start();
 
     }
 

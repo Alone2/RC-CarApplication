@@ -103,6 +103,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/autopilot"
+        android:layout_width="87dp"
+        android:layout_height="61dp"
+        android:text="Go to place"
+        app:layout_constraintBottom_toTopOf="@+id/screenshot"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/panorama"
         android:layout_width="103dp"
         android:layout_height="50dp"
@@ -124,9 +132,9 @@
         android:id="@+id/gpsdInformation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         android:text="NO GPS DATA AVAILABLE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
