@@ -8,6 +8,6 @@ It is required to run and setup this repository on the Raspberry Pi https://gith
 
 Currently the IP is set to `192.168.8.99` it currently needs to be changed in the code to match your situation.
 
-In our implementation, the Raspberry Pi generates it's own Lighttpd server to upload images taken by the Car in order to display them in the application.
+In our implementation, the Raspberry Pi generates it's own Lighttpd server to upload images taken by the car in order to display them in the application.
 
 
