@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.hardware.SensorManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -69,15 +70,19 @@ public class MainActivity extends AppCompatActivity {
         final CarController controller = new CarController(car);
 
         // Location Stuff
-        /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new PhoneGPSListener();
+        final PhoneGPSListener locationListener = new PhoneGPSListener();
 
         ContextCompat.checkSelfPermission(this, Manifest.permission_group.LOCATION);
         locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);*/
+                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
+        // "compass" stuff
+        SensorManager sensMan = (SensorManager)getSystemService(SENSOR_SERVICE);
+        final CompassListener comListener = new CompassListener(sensMan);
 
+        // when button pressed -> get location
         auto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             {46.0110946,8.957196}
                     };
                     // new runnable thread
-                    Runnable r = new AutoDriveLoop(gpsdH, positions, car);
+                    Runnable r = new AutoDriveLoop(locationListener, positions, car, comListener);
                     new Thread(r).start();
                 }
                 return false;

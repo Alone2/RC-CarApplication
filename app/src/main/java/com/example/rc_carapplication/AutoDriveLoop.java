@@ -1,19 +1,25 @@
 package com.example.rc_carapplication;
 
+import android.util.Log;
+
 public class AutoDriveLoop implements Runnable{
 
-        GPSHandler gps;
+        PhoneGPSListener gps;
+        CompassListener com;
 
         double[][] latlonArr;
         static Car car;
-        final int sleepingMillis = 200;
-        final double stopDifference = 0.0005;
+
+        final static int sleepingMillis = 200;
+        final static double stopDifference = 0.00005;
+        final static double toleranceDegrees = 10;
 
 
-        public AutoDriveLoop(GPSHandler ge, double[][] latlon, Car car) {
+        public AutoDriveLoop(PhoneGPSListener ge, double[][] latlon, Car car, CompassListener com) {
             this.gps = ge;
             this.car = car;
             this.latlonArr = latlon;
+            this.com = com;
 
         }
 
@@ -25,36 +31,47 @@ public class AutoDriveLoop implements Runnable{
                 double lon = latlon[1];
 
                 // difference between the position of car and the position it's going to.
-                double diffLat = gps.gpsd_Latitude - lat;
-                double diffLon = gps.gpsd_Latitude - lon;
+                double diffLat = gps.getLatitude() - lat;
+                double diffLon = gps.getLogitude() - lon;
 
 
                 //stop if close enough
-                while (Math.abs(diffLat) > stopDifference && Math.abs(diffLon) > stopDifference) {
+                while (Math.abs(diffLat) > stopDifference || Math.abs(diffLon) > stopDifference) {
                     // get gps data
-                    double carCourse = gps.gpsd_Course;
-                    diffLat = gps.gpsd_Latitude - lat;
-                    diffLon = gps.gpsd_Longitude - lon;
+                    double angleWereHeadingTo = com.getRotation();
+                    diffLat = gps.getLatitude() - lat;
+                    diffLon = gps.getLogitude() - lon;
 
-                    // Angla from north, clockwise
-                    double plusAngle = 0;
+                    // Angle from north, clockwise
+                    double angle = 0;
+                    double calculatedAngle = Math.toDegrees(Math.atan(diffLon / diffLat));
                     if (diffLat > 0 && diffLon < 0) {
-                        plusAngle = 90;
+                        angle = 90 + calculatedAngle;
                     } else if (diffLat < 0 && diffLon < 0) {
-                        plusAngle = 180;
+                        angle = 270 - calculatedAngle;
                     } else if (diffLat < 0 && diffLon > 0) {
-                        plusAngle = 270;
+                        angle = 270 + calculatedAngle;
+                    } else {
+                        angle = 90 - calculatedAngle;
                     }
-                    double angle = Math.atan(diffLon / diffLat) + plusAngle;
-                    double angleWereHeadingTo = carCourse;
+
+                    // Debug stuff
+                    /*Log.i("latitude", gps.getLatitude() + " " + gps.getLogitude() );
+                    Log.i("stuff", String.valueOf(calculatedAngle));
+                    Log.i("diffLat", diffLat + " " + diffLon );
+                    Log.i("angles", angle + " " + angleWereHeadingTo );*/
+
+                    Log.i("carMoves",String.valueOf(angleWereHeadingTo));
 
                     // decide where to go
-                    double toleranceDegrees = 5;
                     if (angle - angleWereHeadingTo > toleranceDegrees) {
+                        Log.i("carMoves","left");
                         car.forwardLeft();
                     } else if (angle - angleWereHeadingTo < toleranceDegrees) {
+                        Log.i("carMoves","right");
                         car.forwardRight();
                     } else {
+                        Log.i("carMoves","forward");
                         car.forward();
                     }
 
@@ -65,6 +82,8 @@ public class AutoDriveLoop implements Runnable{
                         System.out.println(v);
                     }
                 }
+                // stop car when finished
+                Log.i("carMoves","stopped");
                 car.stop();
             }
         }

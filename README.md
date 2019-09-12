@@ -10,4 +10,5 @@ Currently the IP is set to `192.168.8.99` it currently needs to be changed in th
 
 In our implementation, the Raspberry Pi generates it's own Lighttpd server to upload images taken by the car in order to display them in the application.
 
+After downloading the app to your phone, you need to allow the app to use your location via your android settings.
 

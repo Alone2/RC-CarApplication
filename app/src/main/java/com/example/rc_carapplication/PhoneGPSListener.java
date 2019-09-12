@@ -15,9 +15,9 @@ public class PhoneGPSListener implements LocationListener {
     @Override
     public void onLocationChanged(Location loc) {
         this.loc = loc;
-        longitude = loc.getLongitude();
-        latitude = loc.getLatitude();
-        bearing = loc.getBearing();
+        this.longitude = loc.getLongitude();
+        this.latitude = loc.getLatitude();
+        this.bearing = loc.getBearing();
     }
 
     public double getBearing() {
