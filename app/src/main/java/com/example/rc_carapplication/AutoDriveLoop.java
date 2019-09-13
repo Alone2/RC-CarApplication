@@ -5,18 +5,20 @@ import android.util.Log;
 public class AutoDriveLoop implements Runnable{
 
         PhoneGPSListener gps;
+        GPSHandler gpsH;
         CompassListener com;
 
         double[][] latlonArr;
         static Car car;
 
         final static int sleepingMillis = 200;
-        final static double stopDifference = 0.00005;
+        final static double stopDifference = 0.00001;
         final static double toleranceDegrees = 10;
 
 
-        public AutoDriveLoop(PhoneGPSListener ge, double[][] latlon, Car car, CompassListener com) {
-            this.gps = ge;
+        public AutoDriveLoop(GPSHandler ge, double[][] latlon, Car car, CompassListener com) {
+            this.gpsH = ge;
+            //this.gps = ge;
             this.car = car;
             this.latlonArr = latlon;
             this.com = com;
@@ -30,17 +32,27 @@ public class AutoDriveLoop implements Runnable{
                 double lat = latlon[0];
                 double lon = latlon[1];
 
+                double gpsLon = gpsH.gpsd_Longitude;
+                double gpsLat = gpsH.gpsd_Latitude;
+                // or gps from phone
+                //double gpsLon = gps.getLatitude();
+                //double gpsLat = gps.getLatitude()
+
                 // difference between the position of car and the position it's going to.
-                double diffLat = gps.getLatitude() - lat;
-                double diffLon = gps.getLogitude() - lon;
+                double diffLat = gpsLat - lat;
+                double diffLon = gpsLon - lon;
 
 
                 //stop if close enough
                 while (Math.abs(diffLat) > stopDifference || Math.abs(diffLon) > stopDifference) {
                     // get gps data
-                    double angleWereHeadingTo = com.getRotation();
-                    diffLat = gps.getLatitude() - lat;
-                    diffLon = gps.getLogitude() - lon;
+                    double angleWereHeadingTo = gpsH.gpsd_Course;
+                    diffLat = gpsH.gpsd_Latitude - lat;
+                    diffLon = gpsH.gpsd_Longitude - lon;
+                    // phone:
+                    // double angleWereHeadingTo = com.getRotation();
+                    //diffLat = gps.getLatitude() - lat;
+                    //diffLon = gps.getLogitude() - lon;
 
                     // Angle from north, clockwise
                     double angle = 0;
@@ -58,18 +70,18 @@ public class AutoDriveLoop implements Runnable{
                     // Debug stuff
                     /*Log.i("latitude", gps.getLatitude() + " " + gps.getLogitude() );
                     Log.i("stuff", String.valueOf(calculatedAngle));
-                    Log.i("diffLat", diffLat + " " + diffLon );
-                    Log.i("angles", angle + " " + angleWereHeadingTo );*/
+                    Log.i("diffLat", diffLat + " " + diffLon );*/
+                    Log.i("carMoves", angle + " " + angleWereHeadingTo );
 
-                    Log.i("carMoves",String.valueOf(angleWereHeadingTo));
+                    //Log.i("carMoves",String.valueOf(angleWereHeadingTo));
 
                     // decide where to go
-                    if (angle - angleWereHeadingTo > toleranceDegrees) {
-                        Log.i("carMoves","left");
-                        car.forwardLeft();
-                    } else if (angle - angleWereHeadingTo < toleranceDegrees) {
+                    if (angle >  angleWereHeadingTo + toleranceDegrees) {
                         Log.i("carMoves","right");
                         car.forwardRight();
+                    } else if (angle <  angleWereHeadingTo - toleranceDegrees) {
+                        Log.i("carMoves","left");
+                        car.forwardLeft();
                     } else {
                         Log.i("carMoves","forward");
                         car.forward();

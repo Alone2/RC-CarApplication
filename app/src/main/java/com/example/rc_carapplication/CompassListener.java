@@ -54,12 +54,12 @@ public class CompassListener implements SensorEventListener {
         double firstRotation = Math.toDegrees(rotationInRadians);
         // rotation from -180 to +180 -> 0 - 360
         if (firstRotation < 0) {
-            rotation = 360 - firstRotation;
+            rotation = 360 + firstRotation;
         } else {
             rotation = firstRotation;
         }
         // Debug
-        //Log.w("rotation:", String.valueOf(rotation));
+        Log.w("rotation:", String.valueOf(firstRotation));
     }
 
     @Override

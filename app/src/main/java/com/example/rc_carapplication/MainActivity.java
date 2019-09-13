@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
                 if (eventAction == MotionEvent.ACTION_DOWN) {
                     // go to place
                     final double[][] positions = {
-                            {46.0110946,8.957196}
+                            {46.010797, 8.956904}
                     };
                     // new runnable thread
-                    Runnable r = new AutoDriveLoop(locationListener, positions, car, comListener);
+                    Runnable r = new AutoDriveLoop(gpsdH, positions, car, comListener);
                     new Thread(r).start();
                 }
                 return false;
