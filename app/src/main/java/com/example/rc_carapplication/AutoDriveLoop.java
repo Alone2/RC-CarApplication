@@ -11,7 +11,8 @@ public class AutoDriveLoop implements Runnable{
         double[][] latlonArr;
         static Car car;
 
-        final static int sleepingMillis = 200;
+        final static int sleepingMillis = 1000;
+        final static int waitForGPS = 1000;
         final static double stopDifference = 0.00001;
         final static double toleranceDegrees = 10;
 
@@ -42,6 +43,16 @@ public class AutoDriveLoop implements Runnable{
                 double diffLat = gpsLat - lat;
                 double diffLon = gpsLon - lon;
 
+                // drive forwards until it gets direction
+                while (gpsH.gpsd_Course == 0.0) {
+                    car.forward();
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException v) {
+                        System.out.println(v);
+                    }
+                }
+                car.stop();
 
                 //stop if close enough
                 while (Math.abs(diffLat) > stopDifference || Math.abs(diffLon) > stopDifference) {
@@ -87,12 +98,21 @@ public class AutoDriveLoop implements Runnable{
                         car.forward();
                     }
 
-                    // sleep for 0.3 sec
+                    // driving for 1 sec
                     try {
                         Thread.sleep(sleepingMillis);
                     } catch (InterruptedException v) {
                         System.out.println(v);
                     }
+                    car.stop();
+
+                    // waiting 1 second to get bearing
+                    try {
+                        Thread.sleep(waitForGPS);
+                    } catch (InterruptedException v) {
+                        System.out.println(v);
+                    }
+
                 }
                 // stop car when finished
                 Log.i("carMoves","stopped");
